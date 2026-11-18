@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#fff0f3">
+<title>Princess Day – A Royal Celebration</title>
+<style>
+:root{--ink:#54283b;--pink:#a83e70;--deep:#922e59;--gold:#80521b;--cream:#fffaf2;--line:#dfc18d}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;padding:18px;background:linear-gradient(140deg,#fff0f3,#fff8e9);color:var(--ink);font-family:Georgia,serif}
+.wrap{max-width:760px;margin:0 auto;padding:clamp(16px,4vw,30px);border:1px solid #efd9dc;border-radius:24px;background:#fff7f0;box-shadow:0 14px 40px #9d627522;position:relative;overflow:hidden}
+.wrap:before,.wrap:after{content:"✧";position:absolute;color:#c49a55;font-size:30px;opacity:.45;animation:float 4s ease-in-out infinite;pointer-events:none}
+.wrap:before{top:22px;left:20px}.wrap:after{right:22px;bottom:100px;animation-delay:1.5s}
+@keyframes float{50%{transform:translateY(-12px) rotate(15deg)}}
+.top{display:flex;justify-content:space-between;gap:12px;font: bold 12px Arial,sans-serif;letter-spacing:2px;color:var(--gold);margin-bottom:12px}
+.progress{height:6px;background:#efd5df;border-radius:8px;overflow:hidden;margin-bottom:26px}
+.progress div{height:100%;background:linear-gradient(90deg,#a83e70,#c49a55);transition:width .35s}
+.slide{display:none;text-align:center;animation:fade .35s ease;position:relative;z-index:1}
+.slide.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+h1,h2,h3{color:var(--deep);line-height:1.35}
+h1{font-size:clamp(30px,7vw,48px)}h2{font-size:clamp(27px,6vw,36px)}
+p{line-height:1.9;color:var(--ink)}
+.gold{color:var(--gold);font-weight:bold}
+.card{background:var(--cream);border:1px solid var(--line);border-radius:20px;padding:clamp(18px,4vw,28px);margin:22px auto;max-width:530px;box-shadow:0 8px 22px #9d627515}
+.kitty{font-size:78px;line-height:1.3}
+.flowers{font-size:34px}
+.btn{border:0;border-radius:28px;padding:12px 22px;font-size:15px;font-weight:bold;cursor:pointer;transition:transform .15s,filter .15s}
+.btn:active{transform:scale(.97)}
+.primary{background:var(--pink);color:#fff}
+.secondary{background:#f7e2e9;color:#702c4b;border:1px solid #d49bb0}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.nav{display:flex;justify-content:space-between;align-items:center;gap:10px;border-top:1px solid var(--line);padding-top:16px;margin-top:28px;position:relative;z-index:1}
+.nav .btn{padding:10px 18px}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;max-width:300px;margin:15px auto}
+.tile{aspect-ratio:1;border:1px solid #c77e9d;border-radius:12px;background:#f8e3eb;color:var(--ink);font-size:28px;cursor:pointer}
+.tile:focus-visible,.btn:focus-visible{outline:3px solid #c58ba4;outline-offset:3px}
+.gifts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0}
+.gift{background:#fce8ef;border-radius:13px;padding:12px}
+.gift:nth-child(2){background:#ffedca}
+.ticket{border:2px dashed #b58b48}
+@media(max-width:420px){body{padding:8px}.wrap{padding:17px 13px}.top{font-size:10px}.nav .btn{padding:10px 13px;font-size:13px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+ <div class="top"><span>✧ THE ROYAL PALACE ✧</span><span id="count">PAGE 1 OF 6</span></div>
+ <div class="progress"><div id="bar" style="width:16.66%"></div></div>
+ <main>
+  <section class="slide active">
+   <div class="flowers">👑✨</div>
+   <h1>Happy Princess Day,<br>My Sweetheart! 💗</h1>
+   <div class="card"><div class="kitty" role="img" aria-label="Cute kitten">🐱</div><div class="flowers">💐🌷💐</div><p><em>Welcome to your magical royal palace!</em></p></div>
+   <p>A beautiful little celebration filled with flowers, sparkles and happiness.</p>
+   <button class="btn primary" data-next>Enter the Palace ➜</button>
+  </section>
+  <section class="slide">
+   <div class="flowers">🎁</div><h2>Gifts for My Princess</h2>
+   <div class="card"><div class="kitty">🎀</div>
+    <div class="gifts"><div class="gift"><div class="flowers">🌷</div><p>Flowers</p></div><div class="gift"><div class="flowers">💎</div><p>Jewels</p></div><div class="gift"><div class="flowers">🧸</div><p>Happiness</p></div></div>
+    <h3>A Little Love Note 💌</h3><p>May your days be filled with beautiful surprises, endless laughter, lovely memories and countless reasons to smile.</p>
+   </div>
+   <button class="btn primary" data-next>Next Surprise ➜</button>
+  </section>
+  <section class="slide">
+   <div class="flowers">🧩</div><h2>Royal Crown Puzzle</h2><p>Tap the empty square to place your missing crown!</p>
+   <div class="card"><div class="gold">3 × 3 ROYAL GRID</div><div class="tiles" id="grid"></div><p id="message" aria-live="polite"><strong>👑 Your crown is waiting!</strong></p><button class="btn secondary" id="reset">↻ Reset Puzzle</button></div>
+   <button class="btn primary" id="continue" disabled>Continue ➜</button>
+  </section>
+  <section class="slide">
+   <div class="flowers">💌</div><h2>A Royal Note</h2>
+   <div class="card" style="text-align:left"><div style="text-align:center" class="gold">❧ ♡ ❧</div><h3 style="text-align:center">To my Sweetheart...</h3>
+    <p>You are a wonderful person, and you deserve all the happiness in the world. May your dreams come true and may your life always be filled with beautiful memories.</p>
+    <p>Keep shining like a star. Never stop being your amazing self. You deserve a crown of happiness every single day.</p>
+    <p class="gold" style="text-align:center">With warm wishes,</p><h3 style="text-align:center">Your Prince 👑</h3><p style="text-align:center">🌸💗🌸</p>
+   </div><button class="btn primary" data-next>See Royal Surprise ➜</button>
+  </section>
+  <section class="slide">
+   <div class="flowers">🎟️</div><h2>Royal Surprises</h2>
+   <div class="card ticket"><div class="kitty">🐱</div><div class="flowers">🌸</div><h3>GOLDEN ROYAL TICKET</h3>
+    <p style="text-align:left;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 0"><b class="gold">FROM:</b> Your Prince<br><br><b class="gold">TO:</b> Sweetheart<br><br><b class="gold">VALID FOR:</b> Forever</p>
+    <div class="flowers">🎀💐🎀</div><p><em>A special ticket for unlimited smiles, happiness and beautiful memories!</em></p><p class="gold">✧ EXCLUSIVE ROYAL EDITION ✧</p>
+   </div><button class="btn primary" data-next>Final Surprise ➜</button>
+  </section>
+  <section class="slide">
+   <div class="flowers">👑</div><h2>My Princess,<br>FOREVER & ALWAYS 💖</h2>
+   <div class="card"><div class="kitty">🐱</div><div class="flowers">🌷💗🌷</div><p>May your crown always sparkle, your dreams always find their wings, and your heart always have a reason to celebrate.</p><h3>Thank You! ♡</h3><p class="gold">A little royal celebration made with love.</p></div>
+   <button class="btn primary" id="restart">↻ Visit Palace Again</button>
+  </section>
+ </main>
+ <div class="nav"><button class="btn secondary" id="back" disabled>← Back</button><span class="gold" style="font-size:12px">♡ PRINCESS DAY ♡</span><button class="btn primary" id="next">Next →</button></div>
+</div>
+<script>
+(()=>{
+ const slides=[...document.querySelectorAll('.slide')],back=document.getElementById('back'),next=document.getElementById('next');
+ let page=0,solved=false;
+ function show(n){page=Math.max(0,Math.min(5,n));slides.forEach((s,i)=>s.classList.toggle('active',i===page));document.getElementById('count').textContent=`PAGE ${page+1} OF 6`;document.getElementById('bar').style.width=((page+1)/6*100)+'%';back.disabled=page===0;next.textContent=page===5?'Finished ♡':'Next →';next.disabled=page===2&&!solved;}
+ back.addEventListener('click',()=>show(page-1));next.addEventListener('click',()=>{if(page!==5)show(page+1)});
+ document.querySelectorAll('[data-next]').forEach(b=>b.addEventListener('click',()=>show(page+1)));
+ const original=['🌸','✨','💗','🌷','','🎀','⭐','🦋','💎'];let cells=[...original];
+ function draw(){const grid=document.getElementById('grid');grid.innerHTML='';cells.forEach((v,i)=>{const b=document.createElement('button');b.className='tile';b.textContent=v||'＋';b.setAttribute('aria-label',v||'Empty square');b.addEventListener('click',()=>{if(solved||v)return;cells[i]='👑';solved=true;draw();document.getElementById('message').textContent='✨ The crown was always meant for you! You did it, Princess! 👑';document.getElementById('continue').disabled=false;show(2)});grid.appendChild(b)});}
+ function reset(){cells=[...original];solved=false;document.getElementById('message').textContent='👑 Your crown is waiting!';document.getElementById('continue').disabled=true;draw();show(2)}
+ document.getElementById('reset').addEventListener('click',reset);document.getElementById('continue').addEventListener('click',()=>{if(solved)show(3)});
+ document.getElementById('restart').addEventListener('click',()=>{reset();show(0)});
+ draw();show(0);
+})();
+</script>
+</body>
+</html>
